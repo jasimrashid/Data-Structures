@@ -17,13 +17,6 @@ Stretch: What if you could only use instances of your Stack class to implement t
 """
 
 
-# from pd.singly_linked_list.singly_linked_list import LinkedList, Node
-
-# from singly_linked_list.singly_linked_list import LinkedList, Node
-
-# from singly_linked_list.singly_linked_list import LinkedList, Node
-from singly_linked_list import LinkedList
-
 class Queue_using_arrays:
     def __init__(self):
         self.size = 0
@@ -63,84 +56,113 @@ class Queue:
         else:
             return None
 
-# class Node:
-#     def __init__(self, value, next_node=None):
-#         self.value = value
-#         self.next_node = next_node
+class Queue_from_Stack:
+    def __init__(self):
+        self.size = 0
+        self.storage = Stack()
 
-#     def get_value(self):
-#         return self.value
+    def __len__(self):
+        return self.size
 
-#     def get_next(self):
-#         return self.next_node
+    def enqueue(self, value):
+        self.storage.push(value)
+        self.size += 1
+            
+    def dequeue(self):   
+        new_stack = Stack()
+        for i in range(self.size):            
+            val = self.storage.pop()
+            new_stack.push(val)
 
-#     def set_next(self, new_next):
-#         self.next_node = new_next
+        pop_val = new_stack.pop()
+        if self.size != 0:
+            self.size -= 1
 
-# class LinkedList:
-#     def __init__(self):
-#         self.head = None
-#         self.tail = None    
+        self.storage = Stack()
+        for i in range(self.size):
+            self.storage.push(new_stack.pop())
 
-#     def add_to_tail(self, value):
-#         new_node = Node(value)
-#         if self.head is None or self.tail is None:
-#             self.head = new_node
-#             self.tail = new_node
+        return pop_val
+        
+class Node:
+    def __init__(self, value, next_node=None):
+        self.value = value
+        self.next_node = next_node
 
-#         else:
-#             val = self.head.get_value()
-#             self.tail.set_next(new_node)
-#             self.tail = new_node
+    def get_value(self):
+        return self.value
 
-#     def remove_tail(self):
-#         if self.head is None and self.tail is None:
-#             return None
+    def get_next(self):
+        return self.next_node
 
-#         if self.head == self.tail:
-#             val = self.head.get_value()
-#             self.head = None
-#             self.tail = None
-#             return val
+    def set_next(self, new_next):
+        self.next_node = new_next
 
-#         else:
-#             val = self.tail.get_value()
-#             current = self.head
-#             while current.get_next() != self.tail:
-#                 current = current.get_next()
-#             self.tail = current
-#             self.tail.set_next(None)
-#             return val
+class LinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None    
 
-#     def remove_head(self):
-#         if self.head is None and self.tail is None:
-#             return None
+    def add_to_tail(self, value):
+        new_node = Node(value)
+        if self.head is None or self.tail is None:
+            self.head = new_node
+            self.tail = new_node
 
-#         elif self.head == self.tail:
-#             val = self.head.get_value()
-#             self.head = None
-#             self.tail = None
-#             return val
-#         else:
-#             val = self.head.get_value()
-#             self.head = self.head.get_next()
-#             return val
+        else:
+            val = self.head.get_value()
+            self.tail.set_next(new_node)
+            self.tail = new_node
 
+    def remove_tail(self):
+        if self.head is None and self.tail is None:
+            return None
 
+        if self.head == self.tail:
+            val = self.head.get_value()
+            self.head = None
+            self.tail = None
+            return val
 
-q = Queue()
-q.enqueue(1)
-q.enqueue('a')
-print(q.storage)
-q.dequeue()
-print(q.storage)
-q.dequeue()
-print(q.storage)
-q.dequeue()
-print(q.storage)
-q.enqueue(3)
-q.enqueue(4)
-print(q.storage)
+        else:
+            val = self.tail.get_value()
+            current = self.head
+            while current.get_next() != self.tail:
+                current = current.get_next()
+            self.tail = current
+            self.tail.set_next(None)
+            return val
 
+    def remove_head(self):
+        if self.head is None and self.tail is None:
+            return None
 
+        elif self.head == self.tail:
+            val = self.head.get_value()
+            self.head = None
+            self.tail = None
+            return val
+        else:
+            val = self.head.get_value()
+            self.head = self.head.get_next()
+            return val
 
+class Stack:
+    def __init__(self):
+        self.size = 0
+        self.storage = LinkedList()
+
+    def __len__(self):
+        return self.size
+
+    def push(self, value):
+        self.storage.add_to_tail(value)
+        self.size += 1
+
+    def pop(self):
+        if self.size != 0:
+            self.size -= 1
+            # val = self.storage.tail.get_value()
+            return self.storage.remove_tail()
+        else:
+            return None
