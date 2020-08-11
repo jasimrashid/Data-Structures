@@ -37,11 +37,7 @@ class LinkedList:
             self.tail.set_next(new_node)
             # update `self.tail` to point the new node we just added 
             self.tail = new_node
-
-    def remove_tail(self):
-        return None
-
-    
+            
     def remove_tail(self):
         # check if the linked list is empty 
         if self.head is None and self.tail is None:

@@ -103,7 +103,7 @@ class DoublyLinkedListTests(unittest.TestCase):
         self.assertIsNone(self.dll.tail)
         self.assertEqual(len(self.dll), 0)
 
-        self.dll.add_to_tail(1)
+        self.dll.add_to_tail(1) #fail --> pass
         self.dll.add_to_head(9)
         self.dll.add_to_tail(6)
 

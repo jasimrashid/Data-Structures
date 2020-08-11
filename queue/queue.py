@@ -56,6 +56,7 @@ class Queue:
         else:
             return None
 
+# Stretch goal:
 class Queue_from_Stack:
     def __init__(self):
         self.size = 0
